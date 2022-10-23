@@ -1,0 +1,5 @@
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+vue create caoff-vote
+vue add vuetify
+npm i -S vuedraggable
+npm run serve
