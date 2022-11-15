@@ -63,7 +63,7 @@ export default {
         } else {
           return (i + 1) + "位:" + item.songTitle + "/" + item.animeTitle
         }
-      }).join("\n") + "\n" + location.href.replace(/vote$/, ''))
+      }).join("\n") + "\n" + location.href.replace(/#\/vote$/, ''))
       tweetUrl.searchParams.set("hashtags", this.hashtag)
       sessionStorage.removeItem(STRAGE_KEY_SONGS)
       window.location.href = tweetUrl
