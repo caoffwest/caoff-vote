@@ -61,7 +61,7 @@ export default {
         if (typeof (item.id) == "string" && item.id.startsWith("empty-")) {
           return (i + 1) + "位:{入力してください}"
         } else {
-          return (i + 1) + "位:" + item.songTitle
+          return (i + 1) + "位:" + item.songTitle + "/" + item.animeTitle
         }
       }).join("\n") + "\n" + location.href.replace(/vote$/, ''))
       tweetUrl.searchParams.set("hashtags", this.hashtag)

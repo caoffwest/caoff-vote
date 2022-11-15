@@ -14,7 +14,7 @@
         <v-container>
           <p class="mt-16">まずは3曲選ぼう。リストにない場合はtweetする時に自分で追加してね。</p>
           <v-list two-line class="mb-12">
-            <v-list-item-group multiple max="3" v-model="listModel">
+            <v-list-item-group multiple max="0" v-model="listModel">
               <template>
                 <v-list-item v-for="(song) in filteredSongs" :key="song.id" :value="song" @click="listOnClick(song)">
                   <template v-slot:default="{ active }">
@@ -93,7 +93,7 @@ export default {
         })
       },
       set: function (val) {
-        //nothing
+        //nothing to do
         val.length
       }
     }
