@@ -8,6 +8,7 @@
 
 <script>
 import axios from 'axios'
+import { API_URL } from './constants.js'
 
 export default {
   name: 'App',
@@ -19,7 +20,7 @@ export default {
     songs: []
   }),
   mounted() {
-    axios.get("https://db9qp4rc97c3t.cloudfront.net/caoffVoteInfo")
+    axios.get(API_URL)
     .then(response => {
       this.title = response.data.title
       this.body = response.data.body
