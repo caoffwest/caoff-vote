@@ -5,9 +5,9 @@
         <v-text-field class="mt-auto mb-auto mr-1" solo placeholder="曲名/番組名で検索" prepend-inner-icon="mdi-magnify"
           v-model="query"></v-text-field>
         <v-badge color="error" overlap offset-y="20" :content="selectedSongs.length" :value="selectedSongs.length >= 1">
-          <v-btn-toggle borderless color="primary" v-model="toggleBtn">
-            <v-btn>選んだ曲</v-btn>
-          </v-btn-toggle>
+          <v-btn text color="primary" @click="dialog = true">
+            選んだ曲
+          </v-btn>
         </v-badge>
       </v-app-bar>
       <v-sheet>
@@ -31,16 +31,50 @@
               </template>
             </v-list-item-group>
           </v-list>
+
           <div style="position:fixed;bottom:20px;width: 100%;text-align: center;">
 
-            <v-btn style="width: 200px;" @click.stop="onClickSelectPriority" color="primary">順位を決める
+            <v-btn style="width: 300px;" @click.stop="onClickSelectPriority" color="primary">順位を決める
             </v-btn>
           </div>
 
         </v-container>
       </v-sheet>
     </v-card>
+    <v-dialog v-model="dialog">
+      <v-card>
+        <v-card-title>選択済みの曲</v-card-title>
+        <v-list v-if="selectedSongs.length > 0" two-line>
+          <v-list-item-group multiple v-model="selectedSongs">
+            <template>
+              <v-list-item v-for="(song) in selectedSongs" :key="song.id" :value="song">
+                <template v-slot:default="{ active }">
+                  <v-list-item-action>
+                    <v-checkbox :input-value="active" readonly></v-checkbox>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="song.songTitle"></v-list-item-title>
+                    <v-list-item-subtitle v-text="song.animeTitle">
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </template>
+              </v-list-item>
+            </template>
+          </v-list-item-group>
+        </v-list>
+        <v-card-text v-else>
+          <div class="text-body-1 pt-5 pl-5">選択済みの曲はありません</div>
+        </v-card-text>
 
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dialog = false">
+            Close
+          </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -54,7 +88,7 @@ export default {
     songsForSearch: [],
     selectedSongs: [],
     query: "",
-    toggleBtn: undefined
+    dialog: false
   }),
   methods: {
     onClickSelectPriority: function () {
@@ -76,11 +110,6 @@ export default {
   },
   computed: {
     filteredSongs: function () {
-      if (this.toggleBtn !== undefined) {
-        return this.songsForSearch.filter((item) => {
-          return this.selectedSongs.find((selected) => selected.id == item.id)
-        })
-      }
       const normarizedQuery = this.normarize(this.query)
       return this.songsForSearch.filter((item) => {
         return this.query.length == 0 || item.searchString.includes(normarizedQuery)
