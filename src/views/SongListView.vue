@@ -4,7 +4,7 @@
       <v-app-bar fixed>
         <v-text-field class="mt-auto mb-auto mr-1" solo placeholder="曲名/番組名で検索" prepend-inner-icon="mdi-magnify"
           v-model="query"></v-text-field>
-        <v-badge color="error" overlap offset-y="20" :content="selectedSongs.length" :value="selectedSongs.length >= 1">
+        <v-badge color="blue" overlap offset-y="20" :content="selectedSongs.length" :value="selectedSongs.length >= 1">
           <v-btn text color="primary" @click="dialog = true">
             選んだ曲
           </v-btn>

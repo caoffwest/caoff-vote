@@ -24,7 +24,7 @@
         </v-col>
         <v-col cols="12" class="text-center">
           <v-btn x-large class="mr-2" @click="onClickBack">戻る</v-btn>
-          <v-btn x-large color="primary" @click="onClickTweet">
+          <v-btn x-large color="#1DA1F2" @click="onClickTweet">
             <v-icon>mdi-twitter</v-icon> 投票する
           </v-btn>
         </v-col>
