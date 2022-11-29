@@ -3,3 +3,6 @@ vue create caoff-vote
 vue add vuetify
 npm i -S vuedraggable
 npm run serve
+
+##build
+npm run build
