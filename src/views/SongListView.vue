@@ -23,7 +23,7 @@
                     </v-list-item-action>
                     <v-list-item-content>
                       <v-list-item-title v-text="song.songTitle"></v-list-item-title>
-                      <v-list-item-subtitle v-text="song.animeTitle">
+                      <v-list-item-subtitle v-text="song.animeTitle + ' / ' + song.artist">
                       </v-list-item-subtitle>
                     </v-list-item-content>
                   </template>
@@ -54,7 +54,7 @@
                   </v-list-item-action>
                   <v-list-item-content>
                     <v-list-item-title v-text="song.songTitle"></v-list-item-title>
-                    <v-list-item-subtitle v-text="song.animeTitle">
+                    <v-list-item-subtitle v-text="song.animeTitle + ' / ' + song.artist">
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </template>
@@ -133,7 +133,7 @@ export default {
     }
     this.songsForSearch = this.songs.concat()
     this.songsForSearch.forEach((item) => {
-      item.searchString = this.normarize(item.songTitle) + "_" + this.normarize(item.animeTitle)
+      item.searchString = this.normarize(item.songTitle) + "_" + this.normarize(item.artist) + "_" + this.normarize(item.animeTitle)
     })
   }
 }

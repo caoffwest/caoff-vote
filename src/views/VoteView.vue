@@ -14,7 +14,7 @@
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title v-text="song.songTitle"></v-list-item-title>
-                    <v-list-item-subtitle v-text="song.animeTitle">
+                    <v-list-item-subtitle v-text="song.animeTitle + ' / ' + song.artist" v-if="!isEmptySong(song)">
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -55,13 +55,16 @@ export default {
         default: return "#BB641D"
       }
     },
+    isEmptySong: function(song) {
+      return (typeof (song.id) == "string" && song.id.startsWith("empty-"))
+    },
     onClickTweet: function () {
       const tweetUrl = new URL("https://twitter.com/intent/tweet")
       tweetUrl.searchParams.set("text", this.selectedSongs.map((item, i) => {
-        if (typeof (item.id) == "string" && item.id.startsWith("empty-")) {
+        if (this.isEmptySong(item)) {
           return (i + 1) + "位:{入力してください}"
         } else {
-          return (i + 1) + "位:" + item.songTitle + "/" + item.animeTitle
+          return (i + 1) + "位:" + item.songTitle + "/" + item.animeTitle + "/" + item.artist
         }
       }).join("\n") + "\n" + location.href.replace(/#\/vote$/, ''))
       tweetUrl.searchParams.set("hashtags", this.hashtag)
@@ -81,6 +84,7 @@ export default {
         this.selectedSongs.push(
           {
             songTitle: "tweetするときに曲名を入力してね",
+            artist: "",
             animeTitle: "",
             id: "empty-" + i
           }
